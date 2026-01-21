@@ -175,7 +175,11 @@ def ui_multiselect_lite(
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Datos
-DATA_PATHS = ["ictio_worksheet_jun25_dahboard.csv"]
+#DATA_PATHS = ["ictio_worksheet_jun25_dahboard.csv"]
+
+BASE_DIR = Path(__file__).parent
+DATA_PATHS = BASE_DIR / "ictio_worksheet_jun25_dahboard.csv"
+BL4_DIR = BASE_DIR / "BL4"
 
 @st.cache_data(show_spinner=True)
 def load_data() -> pd.DataFrame:
@@ -211,7 +215,7 @@ BL4_COL = "BL4" if "BL4" in df.columns else ("watershed_name_corr" if "watershed
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Shapefiles BL4
-BL4_DIR = Path("BL4")
+#BL4_DIR = Path("BL4")
 
 @st.cache_data(show_spinner=True)
 def find_bl4_shapefiles():
