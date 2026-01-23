@@ -1,0 +1,8 @@
+streamlit
+pandas
+numpy
+altair
+pydeck
+st-ant-tree
+geopandas
+shapely
