@@ -177,8 +177,13 @@ def ui_multiselect_lite(
 # Datos
 #DATA_PATHS = ["ictio_worksheet_jun25_dahboard.csv"]
 
-BASE_DIR = Path(__file__).parent
-DATA_PATHS = BASE_DIR / "ictio_worksheet_jun25_dahboard.csv"
+BASE_DIR = Path(__file__).resolve().parent
+# DATA_PATHS debe ser una LISTA (o tu load_data() debe tratar el caso de un solo Path).
+# En el código original se definía como Path pero luego se iteraba: "for p in DATA_PATHS",
+# lo que termina iterando por partes del path (y puede intentar leer "/" como si fuese CSV).
+DATA_PATHS = [
+    BASE_DIR / "ictio_worksheet_jun25_dahboard.csv",
+]
 BL4_DIR = BASE_DIR / "BL4"
 
 @st.cache_data(show_spinner=True)
@@ -189,7 +194,7 @@ def load_data() -> pd.DataFrame:
             path = Path(p)
             break
     if path is None:
-        st.error("No se encontró el archivo de datos. Coloque el CSV junto a app.py o ajuste DATA_PATHS.")
+        st.error("No se encontró el archivo de datos. Coloque el CSV junto a este script o ajuste DATA_PATHS.")
         st.stop()
 
     df_ = pd.read_csv(path, encoding="utf-8-sig", low_memory=False)
